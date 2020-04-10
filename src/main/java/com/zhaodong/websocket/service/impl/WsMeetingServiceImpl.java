@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -36,7 +37,12 @@ public class WsMeetingServiceImpl implements WsMeetingService {
     /**
      * 处理消息线程池
      */
-    private ThreadPoolExecutor executor=new ThreadPoolExecutor(corePoolSize,maximumPoolSize,keepAliveTime,TimeUnit.SECONDS,new LinkedBlockingDeque<>());
+    private ThreadPoolExecutor executor;
+
+    @PostConstruct
+    public void init(){
+        executor=new ThreadPoolExecutor(corePoolSize,maximumPoolSize,keepAliveTime,TimeUnit.SECONDS,new LinkedBlockingDeque<>());
+    }
     @Override
     public void sendToUsers(String meetingCode,String message)  {
         executor.execute(()->{

@@ -14,7 +14,7 @@ public interface WsMeetingService {
      * @param message 消息
      * @throws IOException
      */
-    public void sendToUsers(String meetingCode, String message) throws IOException;
+    public void sendToUsers(String meetingCode, String message);
 
     public void sendSingleUser(String userCode,String message);
 
